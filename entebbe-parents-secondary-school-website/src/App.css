@@ -1,0 +1,56 @@
+/* App.css */
+body {
+margin: 0;
+padding: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: #f8f9fa; /* Light background */
+color: #333;
+}
+/* Navbar Styles */
+.navbar {
+background-color: #006400; /* Dark Green */
+padding: 15px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.navbar a {
+color: #FFD700; /* Golden Yellow */
+text-decoration: none;
+margin: 0 15px;
+font-weight: bold;
+}
+.navbar a:hover {
+text-decoration: underline;
+}
+/* Footer Styles */
+footer {
+background-color: #2E8B57; /* Sea Green */
+color: white;
+padding: 10px;
+text-align: center;
+font-size: 14px;
+}
+/* Page content container */
+.container {
+padding: 40px 20px;
+}
+/* Buttons (optional) */
+.btn {
+background-color: #FFD700;
+color: #006400;
+border: none;
+padding: 10px 20px;
+font-weight: bold;
+cursor: pointer;
+}
+.btn:hover {
+background-color: #e6c200;
+}
+/* Headings */
+h1, h2, h3 {
+color: #006400;
+}
+
+
+
