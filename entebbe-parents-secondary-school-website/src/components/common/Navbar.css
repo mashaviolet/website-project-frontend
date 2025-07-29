@@ -1,0 +1,209 @@
+* Navbar.css */
+.navbar {
+background: darkgreen;
+/* background-color: black; */
+padding: 16px 20px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+box-shadow: 0 2px 10px rgba(46, 125, 50, 0.2);
+position: sticky;
+top: 0;
+z-index: 1000;
+transition: all 0.3s ease;
+}
+.logo img.badge-logo {
+height: 50px;
+width: auto;
+display: block;
+}
+
+/* Navigation Links Container */
+.nav-links {
+display: flex;
+align-items: center;
+gap: 30px;
+}
+/* Navigation Links */
+.nav-links a {
+color: var(--text-light);
+text-decoration: none !important;
+font-weight: 500;
+font-size: 16px;
+padding: 8px 16px;
+border-radius: 6px;
+transition: all 0.3s ease;
+position: relative;
+white-space: nowrap;
+}
+.nav-links a:hover {
+background-color: rgba(255, 255, 255, 0.1);
+color: var(--bright-yellow);
+transform: translateY(-2px);
+text-decoration: none !important;
+}
+.nav-links a:visited,
+.nav-links a:active,
+.nav-links a:focus {
+text-decoration: none !important;
+}
+/* Active link styling */
+.nav-links a.active {
+background-color: var(--mustard-yellow);
+color: var(--text-dark);
+font-weight: 600;
+}
+/* Underline animation on hover */
+.nav-links a::after {
+content: '';
+position: absolute;
+bottom: -2px;
+left: 50%;
+width: 0;
+height: 2px;
+background-color: var(--bright-yellow);
+transition: all 0.3s ease;
+transform: translateX(-50%);
+}
+.nav-links a:hover::after {
+width: 80%;
+}
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+display: none;
+background: none;
+border: none;
+color: var(--text-light);
+font-size: 24px;
+cursor: pointer;
+padding: 4px;
+border-radius: 4px;
+transition: background-color 0.3s ease;
+}
+.mobile-menu-toggle:hover {
+background-color: rgba(255, 255, 255, 0.1);
+}
+/* Mobile Navigation */
+@media (max-width: 768px) {
+.navbar {
+padding: 12px 16px;
+flex-wrap: wrap;
+}
+
+.mobile-menu-toggle {
+display: block;
+}
+
+.nav-links {
+display: none;
+width: 100%;
+flex-direction: column;
+gap: 0;
+margin-top: 16px;
+background-color: rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+padding: 16px;
+backdrop-filter: blur(10px);
+}
+
+.nav-links.mobile-open {
+display: flex;
+}
+
+.nav-links a {
+padding: 12px 16px;
+text-align: center;
+border-radius: 6px;
+margin-bottom: 4px;
+}
+
+.nav-links a:last-child {
+margin-bottom: 0;
+}
+
+.logo {
+font-size: 20px;
+}
+}
+/* Tablet responsive */
+@media (max-width: 1024px) and (min-width: 769px) {
+.nav-links {
+gap: 20px;
+}
+
+.nav-links a {
+font-size: 15px;
+padding: 6px 12px;
+}
+}
+/* Small mobile devices */
+@media (max-width: 480px) {
+.navbar {
+padding: 10px 12px;
+}
+
+.logo {
+font-size: 18px;
+}
+
+.nav-links {
+margin-top: 12px;
+padding: 12px;
+}
+
+.nav-links a {
+padding: 10px 12px;
+font-size: 15px;
+}
+}
+/* Smooth scrolling navbar shrink effect */
+.navbar.scrolled {
+padding: 12px 20px;
+box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
+}
+.navbar.scrolled .logo {
+font-size: 20px;
+}
+/* Dropdown menu styles (if you want to add dropdowns later) */
+.nav-dropdown {
+position: relative;
+}
+.nav-dropdown-content {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+background-color: var(--text-light);
+min-width: 200px;
+border-radius: 8px;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+z-index: 1001;
+margin-top: 8px;
+}
+.nav-dropdown:hover .nav-dropdown-content {
+display: block;
+}
+.nav-dropdown-content a {
+color: var(--text-dark);
+padding: 12px 16px;
+display: block;
+border-radius: 0;
+}
+.nav-dropdown-content a:hover {
+background-color: var(--background-light);
+color: var(--primary-green);
+}
+/* Animation for mobile menu */
+@keyframes slideDown {
+from {
+opacity: 0;
+transform: translateY(-10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.nav-links.mobile-open {
+animation: slideDown 0.3s ease;
+}

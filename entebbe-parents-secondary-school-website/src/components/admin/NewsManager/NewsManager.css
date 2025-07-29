@@ -1,0 +1,324 @@
+/* NewsManager Styles using your color variables */
+
+.news-manager {
+  padding: 2rem;
+  background-color: var(--background-light);
+  min-height: 100vh;
+}
+
+/* Header Section */
+.news-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-green);
+}
+
+.news-manager-header h1 {
+  color: var(--primary-green);
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--button-gradient);
+  color: var(--text-dark);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow-yellow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--hover-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-yellow);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form Container */
+.news-form-container {
+  background: var(--card-gradient);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-green);
+}
+
+.news-form-header h2 {
+  color: var(--primary-green);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+}
+
+/* Form Styles */
+.news-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group label {
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--background-white);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px var(--shadow-green);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.btn-secondary {
+  background-color: var(--background-cream);
+  color: var(--text-dark);
+  border: 2px solid var(--border-light);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-light);
+  border-color: var(--text-medium);
+}
+
+/* News List Section */
+.news-list {
+  background: var(--background-white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.news-list h2 {
+  color: var(--primary-green);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--pale-green);
+  padding-bottom: 0.5rem;
+}
+
+/* Articles Grid */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Article Card */
+.article-card {
+  background: var(--card-gradient);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-green);
+  border-color: var(--border-green);
+}
+
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.article-header h3 {
+  color: var(--primary-green);
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-badge.published {
+  background-color: var(--light-green);
+  color: var(--text-dark);
+}
+
+.status-badge.draft {
+  background-color: var(--light-yellow);
+  color: var(--text-dark);
+}
+
+/* Article Meta */
+.article-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  flex-wrap: wrap;
+}
+
+.article-meta .category {
+  background-color: var(--pale-green);
+  color: var(--primary-green);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Article Excerpt */
+.article-excerpt {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Article Actions */
+.article-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-edit {
+  background-color: var(--light-green);
+  color: var(--text-dark);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.btn-edit:hover {
+  background-color: var(--hover-green);
+  color: var(--text-light);
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.btn-delete:hover {
+  background-color: #e74c3c;
+  transform: translateY(-1px);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-medium);
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .news-manager {
+    padding: 1rem;
+  }
+  
+  .news-manager-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .article-actions {
+    flex-direction: column;
+  }
+  
+  .article-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
