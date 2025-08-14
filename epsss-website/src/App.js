@@ -8,11 +8,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Admin routes - must come before public routes to avoid conflicts */}
+        <Route path="/admin/*" element={<AdminRoutes />} />
+        
         {/* Public site routes */}
         <Route path="/*" element={<PublicRoutes />} />
-
-        {/* Admin routes */}
-        <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
     </BrowserRouter>
   );

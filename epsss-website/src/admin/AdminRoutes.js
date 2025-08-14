@@ -8,11 +8,14 @@ function AdminRoutes() {
   return (
     <Routes>
       {/* Public admin login route */}
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="login" element={<AdminLogin />} />
+
+      {/* Default admin route - show login if no specific path */}
+      <Route path="" element={<AdminLogin />} />
 
       {/* Protected admin routes */}
       <Route
-        path="/admin/*"
+        path="dashboard"
         element={
           // <RequireAdminAuth>
             <AdminApp />
