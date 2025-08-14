@@ -1,0 +1,226 @@
+/* Import your school colors */
+:root {
+  /* Primary Green Colors - Rich & Vibrant */
+  --primary-green: #2E7D32;        
+  --light-green: #66BB6A;          
+  --pale-green: #C8E6C9;           
+  --dark-green: #1B5E20;           
+  
+  /* Yellow Colors - Warm & Golden */
+  --mustard-yellow: #FFC107;       
+  --bright-yellow: #FFEB3B;        
+  --light-yellow: #FFF9C4;         
+  
+  /* Gold for Links - Elegant */
+  --link-gold: #FF8F00;            
+  --link-gold-hover: #F57C00;      
+  
+  /* Text Colors */
+  --text-dark: #1A1A1A;            
+  --text-light: #FAFAFA;           
+  --text-medium: #616161;          
+  
+  /* Background Colors */
+  --background-light: #F8F9FA;     
+  --background-cream: #FFFDE7;     
+  --background-white: #FFFFFF;     
+  
+  /* Hover States */
+  --hover-green: #388E3C;          
+  --hover-yellow: #FFB300;         
+}
+
+/* Login page container - covers the full screen */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+
+/* The main login card/box */
+.login-card {
+  background: var(--background-white);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(46, 125, 50, 0.15);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  animation: slideUp 0.6s ease-out;
+  border: 1px solid var(--pale-green);
+}
+
+/* Animation for the login card */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header section styling */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  color: var(--dark-green);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: var(--text-medium);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Form styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input group styling */
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  color: var(--dark-green);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  padding: 12px 16px;
+  border: 2px solid var(--pale-green);
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: var(--background-light);
+}
+
+.input-group input:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+  background-color: var(--background-white);
+}
+
+.input-group input::placeholder {
+  color: var(--text-medium);
+}
+
+/* Login button styling */
+.login-button {
+  background: linear-gradient(135deg, var(--mustard-yellow) 0%, var(--bright-yellow) 100%);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+  background: linear-gradient(135deg, var(--hover-yellow) 0%, var(--mustard-yellow) 100%);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Footer section */
+.login-footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pale-green);
+}
+
+.login-footer p {
+  color: var(--text-medium);
+  font-size: 12px;
+  margin: 0;
+}
+
+.login-header h1 {
+  font-size: 36px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  
+  /* Gradient text effect */
+  background: linear-gradient(90deg, var(--mustard-yellow), var(--bright-yellow));
+  
+  /* Standard and vendor-prefixed properties for compatibility */
+  background-clip: text;
+  -webkit-background-clip: text;
+  
+  /* Required to show the gradient text */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  text-shadow: 
+    2px 2px 0 var(--dark-green), 
+    4px 4px 0 var(--pale-green);
+
+  padding: 10px 0;
+  border-bottom: 4px solid var(--link-gold);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 
+      2px 2px 0 var(--dark-green), 
+      4px 4px 10px rgba(255, 193, 7, 0.6);
+  }
+  to {
+    text-shadow: 
+      2px 2px 0 var(--dark-green), 
+      4px 4px 20px rgba(255, 193, 7, 1);
+  }
+}
+
+
+/* Responsive design for mobile */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+  }
+  
+  .login-card {
+    padding: 30px 20px;
+  }
+  
+  .login-header h1 {
+    font-size: 24px;
+  }
+}
+

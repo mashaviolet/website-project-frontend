@@ -1,0 +1,233 @@
+@import url('../colors.css');
+
+/* ========= PAGE WRAPPER ========= */
+.contact-page {
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  background: var(--bg-cream);
+  line-height: 1.6;
+  margin-top: 40px;
+}
+
+/* ========= SECTION BASE ========= */
+section {
+  padding: 3rem 1rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ========= HEADINGS ========= */
+h2 {
+  color: var(--primary-green);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+h3 {
+  color: var(--dark-green);
+  margin-bottom: 0.5rem;
+}
+
+/* ========= DEPARTMENT CARDS ========= */
+.departments-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.department-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-green-light);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px var(--shadow-green);
+  text-align: center;
+}
+
+/* ========= CONTACT FORM ========= */
+.contact-form {
+  background: var(--bg-white);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px var(--shadow-green);
+  border: 1px solid var(--border-green-light);
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+input, select, textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-green-light);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 4px var(--shadow-green);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ========= FORM BUTTON ========= */
+.submit-btn {
+  display: inline-block;
+  background: var(--button-gradient);
+  color: var(--text-light);
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  width: 100%;;
+}
+
+.submit-btn:hover {
+  background: var(--hover-green);
+}
+
+.submit-btn:disabled {
+  background: var(--border-green-dark);
+  cursor: not-allowed;
+}
+
+.success-message {
+  margin-top: 1rem;
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+/* ========= MAP SECTION ========= */
+.map-wrapper {
+  background: var(--bg-white);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px var(--shadow-green);
+  border: 1px solid var(--border-green-light);
+}
+
+.location-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.location-info {
+  flex: 1;
+}
+
+.location-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-placeholder {
+  text-align: center;
+  background: var(--pale-green);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px dashed var(--primary-green);
+}
+
+.map-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.map-action-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.map-action-btn.primary {
+  background: var(--primary-green);
+  color: var(--text-light);
+}
+
+.map-action-btn.primary:hover {
+  background: var(--hover-green);
+}
+
+.map-action-btn.secondary {
+  background: var(--accent-yellow);
+  color: var(--text-dark);
+}
+
+.map-action-btn.secondary:hover {
+  background: var(--accent-yellow-hover);
+}
+
+/* ========= CONTACT SUMMARY ========= */
+.contact-summary-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.contact-summary-card {
+  background: var(--bg-white);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px var(--shadow-green);
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid var(--border-green-light);
+}
+
+
+.contact-summary-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .location-card {
+    flex-direction: column;
+  }
+
+  .map-action-btn {
+    flex: unset;
+    width: 100%;
+  }
+}

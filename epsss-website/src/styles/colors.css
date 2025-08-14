@@ -1,0 +1,37 @@
+:root {
+  /* ✅ Primary Greens */
+  --primary-green: #2E7D32;        /* Main Theme Green */
+  --light-green: #66BB6A;          /* Light Green Accent */
+  --pale-green: #E8F5E9;           /* Soft Background */
+  --dark-green: #1B5E20;           /* Dark Nav / Footer / Bold */
+
+  /* ✅ Yellow Accents (Minimal Use) */
+  --accent-yellow: #FBC02D;        /* CTA or Highlights */
+  --accent-yellow-hover: #FFD600;  /* Hover for Yellow Elements */
+
+  /* ✅ Text Colors */
+  --text-dark: #1A1A1A;            /* Main Text */
+  --text-muted: #757575;           /* Subtext or Descriptions */
+  --text-light: #FFFFFF;           /* Text on Dark/Green BGs */
+  --text-green: #2E7D32;           /* For Emphasis */
+
+  /* ✅ Backgrounds */
+  --bg-white: #FFFFFF;
+  --bg-light: #F1F8E9;             /* Light Greenish Background */
+  --bg-cream: #FCFFF5;             /* Very Soft Green-Tinted */
+  --bg-dark-green: #1B5E20;        /* Footer or Dark Areas */
+
+  /* ✅ Hovers */
+  --hover-green: #388E3C;          /* Slightly brighter than primary */
+  --hover-light-green: #81C784;    /* Subtle hover effect */
+
+  /* ✅ Borders and Shadows */
+  --border-green-light: #C8E6C9;
+  --border-green-dark: #A5D6A7;
+  --shadow-green: rgba(46, 125, 50, 0.2);
+
+  /* ✅ Gradients */
+  --hero-gradient: linear-gradient(135deg, #2E7D32, #66BB6A);
+  --button-gradient: linear-gradient(135deg, #2E7D32, #388E3C);
+  --card-gradient: linear-gradient(145deg, #FFFFFF, #F1F8E9);
+}
