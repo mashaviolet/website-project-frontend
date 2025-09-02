@@ -10,56 +10,7 @@
   background-color: var(--background-light);
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-}
-
-/* Hero Section with Background Image - Matching Uniform Layout */
-.news-hero {
-  text-align: center;
-  color: var(--text-light);
-  position: relative;
-  overflow: hidden;
-  display: block;
-}
-
-.news-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-
-.hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.news-hero h1,
-.hero-content h1 {
-  font-size: 3.5em;
-  margin-bottom: 20px;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 1;
-}
-
-.news-hero p,
-.hero-content p {
-  font-size: 1.3em;
-  margin-bottom: 40px;
-  opacity: 0.95;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  position: relative;
-  z-index: 1;
+  margin-top: 50px;
 }
 
 /* Main Content */
@@ -82,17 +33,6 @@
   position: relative;
 }
 
-.news-section h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: var(--mustard-yellow);
-  border-radius: 2px;
-}
 
 .news-grid {
   display: grid;
@@ -210,18 +150,6 @@
   position: relative;
 }
 
-.events-section h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: var(--mustard-yellow);
-  border-radius: 2px;
-}
-
 .events-list {
   display: flex;
   flex-direction: column;
@@ -287,6 +215,13 @@
   margin-bottom: 8px;
   color: var(--primary-green);
   font-weight: 500;
+}
+
+.event-time .icon,
+.event-location .icon {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  /* color: var(--mustard-yellow) */
 }
 
 .event-description {
@@ -392,20 +327,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .news-hero {
-    padding: 60px 20px;
-  }
-  
-  .news-hero h1,
-  .hero-content h1 {
-    font-size: 2.5em;
-  }
-  
-  .news-hero p,
-  .hero-content p {
-    font-size: 1.1em;
-  }
-  
   .main-content {
     padding: 20px 15px;
   }
@@ -441,21 +362,6 @@
 }
 
 @media (max-width: 480px) {
-  .news-hero {
-    padding: 0;
-    display: block;
-  }
-  
-  .news-hero h1,
-  .hero-content h1 {
-    font-size: 2em;
-  }
-  
-  .news-hero p,
-  .hero-content p {
-    font-size: 1em;
-  }
-  
   .main-content {
     padding: 20px 10px;
   }

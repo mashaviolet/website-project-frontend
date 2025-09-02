@@ -1,0 +1,127 @@
+/* Dynamic Page Manager Styles */
+.page-title {
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.page-manager-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pages-list {
+  background: var(--card-gradient);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px var(--shadow-green);
+  border: 1px solid var(--border-green-light);
+}
+
+.page-form-container {
+  background: var(--card-gradient);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px var(--shadow-green);
+  border: 1px solid var(--border-green-light);
+}
+
+.page-table-container {
+  overflow-x: auto;
+}
+
+.page-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.page-table th,
+.page-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-green-light);
+}
+
+.page-table th {
+  background-color: var(--pale-green);
+  color: var(--text-green);
+  font-weight: 600;
+}
+
+.page-table tr:hover {
+  background-color: var(--bg-cream);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-btn-small {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.admin-btn-danger {
+  background-color: #e53935;
+}
+
+.admin-btn-danger:hover {
+  background-color: #c62828;
+}
+
+.page-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-form .form-group {
+  margin-bottom: 15px;
+}
+
+.page-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.page-form input,
+.page-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-green-light);
+  border-radius: 4px;
+  background: var(--bg-white);
+  color: var(--text-dark);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.page-form textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.page-form .form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+  .page-manager-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-form .form-actions {
+    flex-direction: column;
+  }
+  
+  .admin-btn {
+    width: 100%;
+  }
+}

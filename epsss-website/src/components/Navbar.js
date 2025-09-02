@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaChevronDown } from 'react-icons/fa';
 import '../styles/public/Navbar.css';
 import badge from '../assets/logo2.png';
 
@@ -15,12 +16,10 @@ function Navbar() {
   const dropdownItems = {
     'about-us': [
       { label: 'Our History', id: 'our-history' },
-      { label: 'Our Achievements', id: 'our-achievements' },
       { label: 'Our Foundation', id: 'our-foundation' },
-      { label: 'Academic Excellence', id: 'academic-excellence' },
       { label: 'Our Leadership', id: 'our-leadership' },
-      { label: 'Our Facilities', id: 'our-facilities' },
-      { label: 'Community Engagement', id: 'community-engagement' }
+      { label: 'Our Achievements', id: 'our-achievements' },
+      { label: 'Our Facilities', id: 'our-facilities' }
     ],
     'admissions': [
       { label: 'Requirements', id: 'requirements' },
@@ -32,16 +31,19 @@ function Navbar() {
       { label: 'Academics', id: 'academics' },
       { label: 'Co-Curricular', id: 'co-curricular' },
       { label: 'Sports', id: 'sports' },
-      { label: 'Spiritual & Leadership', id: 'spiritual-leadership' }
+      { label: 'Spiritual', id: 'spiritual' },
+      { label: 'Leadership', id: 'leadership' }
     ],
     'news': [
       { label: 'Latest News', id: 'latest-news' },
-      { label: 'Upcoming Events', id: 'upcoming-events' }
+      { label: 'Upcoming Events', id: 'upcoming-events' },
+      { label: 'Newsletter Signup', id: 'newsletter-signup' }
     ],
     'contact-us': [
       { label: 'Department Contacts', id: 'department-contacts' },
       { label: 'Send Us a Message', id: 'send-message' },
-      { label: 'Find Us', id: 'find-us' }
+      { label: 'Find Us', id: 'find-us' },
+      { label: 'Contact Summary', id: 'contact-summary' }
     ]
   };
 
@@ -80,7 +82,7 @@ function Navbar() {
 
   const handleDropdownToggle = (dropdownName) => {
     if (window.innerWidth <= 768) {
-      // Mobile: toggle accordion style
+      // Mobile: toggle only the clicked dropdown independently
       setMobileDropdowns(prev => ({
         ...prev,
         [dropdownName]: !prev[dropdownName]
@@ -91,52 +93,15 @@ function Navbar() {
     }
   };
 
-  const handleDropdownItemClick = (pageRoute, sectionId) => {
-    // Close all menus
-    setIsMobileMenuOpen(false);
-    setActiveDropdown(null);
-    setMobileDropdowns({});
-
-    // Navigate to page and scroll to section
-    if (location.pathname === pageRoute) {
-      // Already on the page, just scroll
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start',
-            inline: 'nearest' 
-          });
-        }
-      }, 100);
-    }
-    // If navigating to different page, the scrolling will be handled by the target page
-  };
-
-  const renderDropdownContent = (items, pageRoute, isMobile = false) => {
-    return (
-      <div className={`nav-dropdown-content ${isMobile ? 'mobile-dropdown' : ''}`}>
-        {items.map((item, index) => (
-          <Link
-            key={index}
-            to={`${pageRoute}#${item.id}`}
-            onClick={() => handleDropdownItemClick(pageRoute, item.id)}
-            className="dropdown-item"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    );
-  };
 
   const renderNavLink = (to, label, dropdownKey) => {
     const isActive = location.pathname === to;
     const hasDropdown = dropdownItems[dropdownKey];
+    const isMobile = window.innerWidth <= 768;
+    const isDropdownOpen = isMobile ? mobileDropdowns[dropdownKey] : activeDropdown === dropdownKey;
 
     if (!hasDropdown) {
-      // Regular link without dropdown
+      // Regular link without dropdown, no arrow
       return (
         <Link
           to={to}
@@ -147,67 +112,146 @@ function Navbar() {
       );
     }
 
-    // Link with dropdown
+    // Mobile: main link on left, arrow on right (only for dropdowns)
+    if (isMobile) {
+      return (
+        <div className={`nav-dropdown mobile${isDropdownOpen ? ' mobile-open' : ''} ${isActive ? 'active' : ''}`}> 
+          <div className="mobile-dropdown-row">
+            <Link
+              to={to}
+              className={`nav-link-with-dropdown ${isActive ? 'active' : ''}`}
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setActiveDropdown(null);
+                setMobileDropdowns({});
+              }}
+              style={{ flex: 1 }}
+            >
+              {label}
+            </Link>
+            <button
+              className="dropdown-arrow-btn"
+              aria-label="Toggle dropdown"
+              onClick={e => {
+                e.preventDefault();
+                handleDropdownToggle(dropdownKey);
+              }}
+              aria-expanded={!!mobileDropdowns[dropdownKey]}
+            >
+              <FaChevronDown style={{ transform: mobileDropdowns[dropdownKey] ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+            </button>
+          </div>
+          <div
+            className="nav-dropdown-content"
+            style={{ display: isDropdownOpen ? 'block' : undefined }}
+          >
+            {dropdownItems[dropdownKey].map((item, idx) => {
+              let linkTo = `${to}#${item.id}`;
+              if (dropdownKey === 'about-us') {
+                linkTo = `/about-us/${item.id}`;
+              } else if (dropdownKey === 'admissions') {
+                linkTo = `/admissions/${item.id}`;
+              } else if (dropdownKey === 'programs') {
+                linkTo = `/programs/${item.id}`;
+              } else if (dropdownKey === 'news') {
+                linkTo = `/news/${item.id}`;
+              } else if (dropdownKey === 'contact-us') {
+                linkTo = `/contact-us/${item.id}`;
+              }
+              return (
+                <Link
+                  key={idx}
+                  to={linkTo}
+                  className="dropdown-item"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setActiveDropdown(null);
+                    setMobileDropdowns({});
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // Desktop: only dropdown links show the arrow
     return (
       <div 
-        className={`nav-dropdown ${isActive ? 'active' : ''}`}
+        className={`nav-dropdown${isDropdownOpen ? ' open' : ''} ${isActive ? 'active' : ''}`}
         onMouseEnter={() => {
-          if (window.innerWidth > 768) {
-            clearTimeout(window.dropdownTimeout);
-            setActiveDropdown(dropdownKey);
-          }
+          clearTimeout(window.dropdownTimeout);
+          setActiveDropdown(dropdownKey);
         }}
         onMouseLeave={() => {
-          if (window.innerWidth > 768) {
-            window.dropdownTimeout = setTimeout(() => {
-              setActiveDropdown(null);
-            }, 200); // 200ms delay before closing
-          }
+          window.dropdownTimeout = setTimeout(() => {
+            setActiveDropdown(null);
+          }, 200);
         }}
       >
         <Link
           to={to}
           className={`nav-link-with-dropdown ${isActive ? 'active' : ''}`}
-          onClick={(e) => {
-            if (window.innerWidth <= 768) {
-              e.preventDefault();
-              handleDropdownToggle(dropdownKey);
-            }
-          }}
         >
           {label}
           <span className="dropdown-arrow">
-            {window.innerWidth <= 768 
-              ? (mobileDropdowns[dropdownKey] ? '▼' : '▶') 
-              : '▼'
-            }
+            <FaChevronDown />
           </span>
         </Link>
-        
-        {/* Desktop dropdown */}
-        {window.innerWidth > 768 && activeDropdown === dropdownKey && 
-          renderDropdownContent(dropdownItems[dropdownKey], to)
-        }
-        
-        {/* Mobile dropdown */}
-        {window.innerWidth <= 768 && mobileDropdowns[dropdownKey] && 
-          renderDropdownContent(dropdownItems[dropdownKey], to, true)
-        }
+        <div
+          className="nav-dropdown-content"
+          style={{ display: isDropdownOpen ? 'block' : undefined }}
+        >
+          {dropdownItems[dropdownKey].map((item, idx) => {
+            let linkTo = `${to}#${item.id}`;
+            if (dropdownKey === 'about-us') {
+              linkTo = `/about-us/${item.id}`;
+            } else if (dropdownKey === 'admissions') {
+              linkTo = `/admissions/${item.id}`;
+            } else if (dropdownKey === 'programs') {
+              linkTo = `/programs/${item.id}`;
+            } else if (dropdownKey === 'news') {
+              linkTo = `/news/${item.id}`;
+            } else if (dropdownKey === 'contact-us') {
+              linkTo = `/contact-us/${item.id}`;
+            }
+            return (
+              <Link
+                key={idx}
+                to={linkTo}
+                className="dropdown-item"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setActiveDropdown(null);
+                  setMobileDropdowns({});
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     );
   };
 
   return (
     <nav ref={navbarRef} className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+      
+      {/* Logo with school name */}
       <Link to="/" className="logo">
         <img
           src={badge}
           alt="EPSS Logo"
           className="badge-logo"
-          style={{ width: '60px', height: '60px' }}
         />
+        <span className="school-name">Entebbe Parents Secondary School</span>
       </Link>
 
+      {/* Mobile menu button */}
       <button
         className="mobile-menu-toggle"
         onClick={toggleMobileMenu}
@@ -216,31 +260,16 @@ function Navbar() {
         {isMobileMenuOpen ? '✕' : '☰'}
       </button>
 
+      {/* Nav links */}
       <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-        {/* Home - no dropdown */}
-        <Link
-          to="/"
-          className={location.pathname === '/' ? 'active' : ''}
-        >
+        <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
           Home
         </Link>
-
-        {/* About Us - with dropdown */}
         {renderNavLink('/about-us', 'About Us', 'about-us')}
-
-        {/* Admissions - with dropdown */}
         {renderNavLink('/admissions', 'Admissions', 'admissions')}
-
-        {/* Programs - with dropdown */}
         {renderNavLink('/programs', 'Programs', 'programs')}
-
-        {/* News & Events - with dropdown */}
         {renderNavLink('/news', 'News & Events', 'news')}
-
-        {/* Gallery - with dropdown */}
         {renderNavLink('/gallery', 'Gallery', 'gallery')}
-
-        {/* Contact Us - with dropdown */}
         {renderNavLink('/contact-us', 'Contact Us', 'contact-us')}
       </div>
     </nav>

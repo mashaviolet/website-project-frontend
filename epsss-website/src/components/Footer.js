@@ -1,18 +1,20 @@
 import React from 'react';
 import '../styles/public/Footer.css';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaTiktok } from 'react-icons/fa6';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa'; // icons for address, phone, email
 
 function Footer() {
   return (
     <footer className="footer-enhanced">
       <div className="footer-content">
+        
         {/* School Information */}
         <div className="footer-section">
           <h3>Entebbe Parents Secondary School</h3>
           <p>Nurturing Excellence in Education</p>
-          <p>📍 Katabi Namate, Entebbe, Uganda. </p>
-          <p>📞 +256 752 630 101</p>
-          <p>✉️ entebbeparentsss@gmail.com.</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> Katabi Namate, Entebbe, Uganda</p>
+          <p><FaPhone className="footer-icon" /> +256 752 630 101</p>
+          <p><FaEnvelope className="footer-icon" /> entebbeparentsss@gmail.com</p>
         </div>
 
         {/* Quick Links */}
@@ -28,7 +30,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Programs - Updated with actual program categories */}
+        {/* Programs */}
         <div className="footer-section">
           <h3>Our Programs</h3>
           <ul>
@@ -43,12 +45,35 @@ function Footer() {
         {/* Social Media */}
         <div className="footer-section">
           <h3>Connect With Us</h3>
-          <p>Follow us on social media for updates</p>
+          <p>Follow us for updates</p>
           <div className="footer-social">
-            <a href="#" aria-label="Facebook"><FaFacebook /></a>
-            <a href="#" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#" aria-label="LinkedIn"><FaLinkedin /></a>
+            {/* TikTok */}
+            <a 
+              href="https://www.tiktok.com/@entebbeparents.s.s" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="TikTok"
+            >
+              <FaTiktok />
+            </a>
+            
+            {/* Gmail */}
+            <a 
+              href="mailto:entebbeparentsss@gmail.com" 
+              aria-label="Gmail"
+            >
+              <FaEnvelope />
+            </a>
+            
+            {/* Youtube */}
+            <a 
+              href="https://www.youtube.com/watch?v=d030qnCVYpw&pp=ygUgZW50ZWJiZSBwYXJlbnRzIHNlY29uZGFyeSBzY2hvb2w%3D" 
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Youtube"
+            >
+              <FaYoutube />
+            </a>
           </div>
         </div>
       </div>

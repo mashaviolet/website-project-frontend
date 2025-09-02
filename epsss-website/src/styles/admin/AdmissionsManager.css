@@ -1,0 +1,128 @@
+.admin-section h3 {
+  color: var(--text-dark);
+}
+
+@import '../../styles/colors.css';
+
+.admissions-manager-container {
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 32px auto 32px 270px;
+  background: var(--bg-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-green, rgba(46, 125, 50, 0.08));
+  padding: 32px 40px;
+  width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .admissions-manager-container {
+    max-width: 98vw;
+    margin-left: 200px;
+    padding: 24px 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .admissions-manager-container {
+    margin-left: 0;
+    max-width: 100vw;
+    padding: 12px 2vw;
+  }
+}
+
+.admin-page-container.admissions-manager {
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 40px auto;
+  background: var(--bg-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-green, rgba(46, 125, 50, 0.08));
+  padding: 32px 40px;
+  width: 100%;
+}
+
+.admin-section {
+  margin-bottom: 32px;
+}
+
+.admin-subsection {
+  background: var(--bg-cream);
+  border: 1px solid var(--border-green-dark);
+  border-radius: 4px;
+  padding: 12px 10px;
+  margin-bottom: 10px;
+}
+.admin-subsection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.admin-list-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.admin-input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--border-green-light);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  transition: border 0.2s;
+}
+.admin-input:focus {
+  border: 1.5px solid var(--primary-green);
+  outline: none;
+}
+
+.admin-add-btn, .admin-remove-btn, .admin-save-btn {
+  background: var(--primary-green);
+  color: var(--text-light);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  transition: background 0.2s;
+}
+.admin-add-btn:hover, .admin-save-btn:hover {
+  background: var(--hover-green);
+}
+.admin-remove-btn {
+  background: var(--accent-yellow);
+  color: var(--text-dark);
+}
+.admin-remove-btn:hover {
+  background: var(--accent-yellow-hover);
+}
+
+.admin-add-level-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.admin-error {
+  color: #b71c1c;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.admin-success {
+  color: #1b5e20;
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}

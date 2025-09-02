@@ -1,89 +1,131 @@
+:root {
+  --text-light: #ffffff;
+  --primary-green: #2e7d32;
+  --mustard-yellow: #ffd600;
+  --bright-yellow: #ffeb3b;
+  --light-green: #81c784;
+  --text-dark: #333333;
+  --border-color: #e0e0e0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
 .admissions-container {
   min-height: 100vh;
-  background-color: var(--background-light);
+  background-color: transparent; /* Use transparent instead of none */
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-}
-
-.admissions-hero img {
-  display: block;
-  width: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+ 
+  flex-direction: column;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Hero Section with Divided Images */
 .admissions-hero {
   text-align: center;
   color: var(--text-light);
   position: relative;
   overflow: hidden;
+  height: 100vh;
+  min-height: 600px;
+  width:100vw;
+  margin: 0 ;
+  padding: 0;
+  top: 0;
+  left: 0;
 }
 
-.admissions-hero::before {
-  content: '';
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.hero-image-left,
+.hero-image-right {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  background-size: cover; /* Ensure this is set */
+  background-position: center;
+}
+
+.hero-image-right {
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dark Overlay Container */
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 0;
+  background: rgba(0, 0, 0, 0.1);
+  /* backdrop-filter: blur(2px); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
-.hero-content {
-  max-width: 98%;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-  padding: 0;
-  height: 100%;
-  width: 100%;
+.hero-content-container {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 60px 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 800px;
+  width: 90%;
+  text-align: center;
 }
 
-.admissions-hero h1 {
+.hero-content-container h1 {
   font-size: 3.5em;
   margin-bottom: 20px;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 1;
+  color: white;
 }
 
-.hero-subtitle {
+.hero-content-container p {
   font-size: 1.3em;
   margin-bottom: 40px;
   opacity: 0.95;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  position: relative;
-  z-index: 1;
+  color: white;
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 40px;
   margin-top: 40px;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
 }
 
 .stat-item {
   text-align: center;
   background: rgba(255,255,255,0.15);
-  padding: 20px;
+  padding: 25px 20px;
   border-radius: 15px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.2);
   min-width: 120px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .stat-item:hover {
   transform: translateY(-5px);
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
 }
 
 .stat-number {
@@ -99,6 +141,7 @@
   font-size: 0.9em;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  color: white;
 }
 
 /* Navigation Tabs */
@@ -153,25 +196,28 @@
   position: relative;
 }
 
-.admissions-content h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: var(--mustard-yellow);
-  border-radius: 2px;
-}
+
 
 /* Requirements Section */
 .requirements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 40px;
 }
+
+@media (max-width: 1100px) {
+  .requirements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .requirements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .requirement-card {
   background: white;
@@ -207,19 +253,18 @@
   border-bottom: 1px solid var(--border-color);
   position: relative;
   padding-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .requirement-card li:last-child {
   border-bottom: none;
 }
 
-.requirement-card li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
+.requirement-icon {
   color: var(--light-green);
-  font-weight: bold;
-  font-size: 1.2em;
+  flex-shrink: 0;
 }
 
 /* Fees Section */
@@ -285,18 +330,24 @@
   padding: 8px 0;
   position: relative;
   padding-left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.fee-notes li::before {
-  content: '💡';
-  position: absolute;
-  left: 0;
+.fee-note-icon {
+  color: var(--mustard-yellow);
+  flex-shrink: 0;
 }
 
 /* Timeline Section */
 .timeline {
   position: relative;
   padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 }
 
 .timeline::before {
@@ -312,9 +363,15 @@
 
 .timeline-item {
   display: flex;
-  align-items: center;
-  margin: 40px 0;
+  align-items: flex-start;
+  margin: 24px 0;
   position: relative;
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 18px 28px;
 }
 
 .timeline-item:nth-child(odd) {
@@ -323,17 +380,17 @@
 
 .timeline-item:nth-child(odd) .timeline-content {
   text-align: right;
-  margin-right: 50px;
+  margin-right: 0;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
-  margin-left: 50px;
+  margin-left: 0;
 }
 
 .timeline-date {
   background: var(--mustard-yellow);
   color: var(--text-dark);
-  padding: 15px 20px;
+  padding: 15px 24px;
   border-radius: 25px;
   font-weight: 700;
   font-size: 1.1em;
@@ -342,22 +399,28 @@
   box-shadow: var(--shadow);
   min-width: 140px;
   text-align: center;
+  align-self: flex-start;
+  margin-top: 6px;
 }
 
 .timeline-content {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: var(--shadow);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
   flex: 1;
   max-width: 400px;
-  border-left: 5px solid var(--primary-green);
+  border-left: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .timeline-content h3 {
   color: var(--primary-green);
-  margin-bottom: 10px;
-  font-size: 1.3em;
+  margin-bottom: 6px;
+  font-size: 1.15em;
+  font-weight: 700;
 }
 
 /* Process Section */
@@ -409,42 +472,7 @@
   line-height: 1.6;
 }
 
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.contact-item {
-  background-color: #4a7c59;
-  padding: 25px;
-  border-radius: 12px;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contact-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.contact-item h3 {
-  color: var(--bright-yellow);
-  margin-bottom: 15px;
-  font-size: 1.4em;
-  text-align: center;
-}
-
-.contact-item p {
-  margin: 8px 0;
-  opacity: 0.9;
-  text-align: center;
-}
-
+/* CTA Section */
 .admissions-cta {
   padding: 60px 20px;
   text-align: center;
@@ -452,35 +480,71 @@
   overflow: hidden;
   border-radius: 8px;
   margin: 40px 0;
+  background: none;
 }
 
-.admissions-cta::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.5;
+.cta-content {
+  position: relative;
+  z-index: 2;
 }
 
+.cta-button {
+  background: var(--mustard-yellow);
+  color: var(--text-dark);
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  background: #f5d800;
+}
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .admissions-hero {
-    padding: 60px 20px;
+@media (max-width: 968px) {
+  .hero-section {
+    flex-direction: column;
   }
   
-  .admissions-hero h1 {
+  .hero-image-left,
+  .hero-image-right {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .hero-image-right {
+    border-left: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content-container {
+    padding: 40px 20px;
+  }
+  
+  .hero-content-container h1 {
     font-size: 2.5em;
   }
   
+  .hero-content-container p {
+    font-size: 1.1em;
+  }
+  
   .hero-stats {
-    gap: 30px;
+    gap: 20px;
   }
   
   .stat-item {
     min-width: 100px;
+    padding: 20px 15px;
   }
   
   .admissions-tabs {
@@ -525,22 +589,29 @@
     transform: translateY(-5px);
   }
   
-  .contact-grid {
-    grid-template-columns: 1fr;
+  .requirement-card li {
+    padding-left: 0;
   }
 }
 
 @media (max-width: 480px) {
   .admissions-hero {
-    padding: 0;
+    height: 80vh;
+    min-height: 500px;
+    margin: 0;
+    padding:  0;;
   }
   
-  .admissions-hero h1 {
+  .hero-content-container {
+    padding: 30px 15px;
+  }
+  
+  .hero-content-container h1 {
     font-size: 2em;
   }
   
-  .hero-subtitle {
-    font-size: 1.1em;
+  .hero-content-container p {
+    font-size: 1em;
   }
   
   .admissions-content {
@@ -552,12 +623,19 @@
   }
   
   .requirement-card,
-  .step,
-  .contact-item {
+  .step {
     padding: 20px;
   }
   
   .timeline-item .timeline-content {
     margin-left: 50px !important;
   }
+  
+  .hero-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
 }
+
+

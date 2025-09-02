@@ -1,238 +1,217 @@
-import React, { useState, useEffect } from 'react';
-import WidgetCard from '../components/WidgetCard';
+import React, { useEffect, useState } from 'react';
 import '../../styles/admin/Dashboard.css';
+import api from '../../admin/services/api';
+import WidgetCard from '../components/WidgetCard';
+import { useNavigate } from 'react-router-dom';
+import { 
+  FaUserShield, 
+  FaFileAlt, 
+  FaNewspaper, 
+  FaImages, 
+  FaEnvelope,
+  FaPlus,
+  FaEdit,
+  FaUpload,
+  FaChartLine,
+  FaClock
+} from 'react-icons/fa';
 
 const Dashboard = () => {
-  const [stats, setStats] = useState({
-    totalStudents: 0,
-    totalPrograms: 0,
-    totalNews: 0,
-    unreadMessages: 0,
-    totalGalleryItems: 0,
-    recentAdmissions: 0
-  });
-
-  const [recentActivities, setRecentActivities] = useState([]);
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [me, setMe] = useState(null);
+  const [recentActivity, setRecentActivity] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch dashboard data from your Flask backend
-    fetchDashboardData();
+    let cancelled = false;
+    (async () => {
+      try {
+        const [statsRes, meRes, activityRes] = await Promise.all([
+          api.get('/auth/stats'),
+          api.get('/auth/me'),
+          api.get('/auth/recent-activity') // Assuming this endpoint exists
+        ]);
+        if (!cancelled) {
+          setStats(statsRes.data);
+          setMe(meRes.data);
+          setRecentActivity(activityRes.data || []);
+        }
+      } catch (e) {
+        if (!cancelled) setError('Failed to load dashboard data');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true);
-      
-      // Replace with your Flask API endpoints
-      const response = await fetch('/api/admin/dashboard-stats');
-      const data = await response.json();
-      
-      if (data.success) {
-        setStats(data.stats);
-        setRecentActivities(data.recentActivities || []);
-      } else {
-        // Fallback with mock data for development
-        setStats({
-          totalStudents: 1247,
-          totalPrograms: 12,
-          totalNews: 45,
-          unreadMessages: 23,
-          totalGalleryItems: 156,
-          recentAdmissions: 34
-        });
-        
-        setRecentActivities([
-          { id: 1, action: 'New student application received', time: '2 hours ago', type: 'admission' },
-          { id: 2, action: 'News article "School Event 2024" published', time: '5 hours ago', type: 'news' },
-          { id: 3, action: 'Gallery updated with 12 new photos', time: '1 day ago', type: 'gallery' },
-          { id: 4, action: 'Contact form submitted by parent', time: '2 days ago', type: 'message' },
-          { id: 5, action: 'Program "Advanced Mathematics" updated', time: '3 days ago', type: 'program' }
-        ]);
-      }
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-      // Set mock data as fallback
-      setStats({
-        totalStudents: 1247,
-        totalPrograms: 12,
-        totalNews: 45,
-        unreadMessages: 23,
-        totalGalleryItems: 156,
-        recentAdmissions: 34
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const cards = [
+    { 
+      title: 'Admins', 
+      key: 'admins', 
+      icon: <FaUserShield className="widget-icon" />, 
+      onClick: () => navigate('/admin/admins'),
+      color: 'var(--dark-green)'
+    },
+    { 
+      title: 'Pages', 
+      key: 'pages', 
+      icon: <FaFileAlt className="widget-icon" />, 
+      onClick: () => navigate('/admin/pages'),
+      color: 'var(--primary-green)'
+    },
+    { 
+      title: 'News', 
+      key: 'news', 
+      icon: <FaNewspaper className="widget-icon" />, 
+      onClick: () => navigate('/admin/news'),
+      color: 'var(--light-green)'
+    },
+    { 
+      title: 'Gallery', 
+      key: 'gallery', 
+      icon: <FaImages className="widget-icon" />, 
+      onClick: () => navigate('/admin/gallery'),
+      color: 'var(--accent-yellow)'
+    },
+    { 
+      title: 'Messages', 
+      key: 'messages', 
+      icon: <FaEnvelope className="widget-icon" />, 
+      onClick: () => navigate('/admin/messages'),
+      color: 'var(--hover-green)'
+    },
+  ];
 
-  const getActivityIcon = (type) => {
-    switch (type) {
-      case 'admission': return '🎓';
-      case 'news': return '📰';
-      case 'gallery': return '📸';
-      case 'message': return '💬';
-      case 'program': return '📚';
-      default: return '📋';
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="dashboard-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading dashboard...</p>
-      </div>
-    );
-  }
+  const quickActions = [
+    { 
+      title: 'Create Page', 
+      icon: <FaPlus />,
+      action: () => navigate('/admin/pages/create')
+    },
+    { 
+      title: 'Edit About', 
+      icon: <FaEdit />,
+      action: () => navigate('/admin/about')
+    },
+    { 
+      title: 'Add News', 
+      icon: <FaPlus />,
+      action: () => navigate('/admin/news/create')
+    },
+    { 
+      title: 'Upload Image', 
+      icon: <FaUpload />,
+      action: () => navigate('/admin/gallery/upload')
+    },
+  ];
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome back! Here's what's happening at your school today.</p>
+        <h1 className="dashboard-title">Dashboard Overview</h1>
+        <div className="dashboard-welcome">
+          Welcome back, <span className="admin-name">{me?.username || 'Admin'}</span>
+        </div>
       </div>
-
-      {/* Stats Widgets Row */}
-      <div className="dashboard-stats">
-        <WidgetCard
-          title="Total Students"
-          value={stats.totalStudents}
-          icon="👥"
-          trend="+12 this month"
-          trendType="positive"
-        />
-        <WidgetCard
-          title="Active Programs"
-          value={stats.totalPrograms}
-          icon="📚"
-          trend="2 new programs"
-          trendType="positive"
-        />
-        <WidgetCard
-          title="Published News"
-          value={stats.totalNews}
-          icon="📰"
-          trend="+5 this week"
-          trendType="positive"
-        />
-        <WidgetCard
-          title="Unread Messages"
-          value={stats.unreadMessages}
-          icon="💬"
-          trend="High priority"
-          trendType="warning"
-        />
-      </div>
-
-      {/* Second Row of Stats */}
-      <div className="dashboard-stats">
-        <WidgetCard
-          title="Gallery Items"
-          value={stats.totalGalleryItems}
-          icon="📸"
-          trend="+20 this month"
-          trendType="positive"
-        />
-        <WidgetCard
-          title="New Admissions"
-          value={stats.recentAdmissions}
-          icon="🎓"
-          trend="This semester"
-          trendType="neutral"
-        />
-        <WidgetCard
-          title="System Status"
-          value="Online"
-          icon="✅"
-          trend="All systems operational"
-          trendType="positive"
-        />
-        <WidgetCard
-          title="Last Backup"
-          value="2h ago"
-          icon="💾"
-          trend="Automated backup"
-          trendType="positive"
-        />
-      </div>
-
-      {/* Recent Activities and Quick Actions */}
-      <div className="dashboard-content">
-        <div className="dashboard-section">
-          <div className="section-header">
-            <h2>Recent Activities</h2>
-            <button className="refresh-btn" onClick={fetchDashboardData}>
-              🔄 Refresh
-            </button>
+      
+      {loading && (
+        <div className="dashboard-loading">
+          <div className="spinner"></div>
+          <p>Loading dashboard data...</p>
+        </div>
+      )}
+      
+      {error && (
+        <div className="dashboard-error">
+          <p>{error}</p>
+          <button className="retry-btn" onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      )}
+      
+      {!loading && !error && (
+        <>
+          <div className="stats-container">
+            {cards.map((c) => (
+              <WidgetCard
+                key={c.key}
+                title={c.title}
+                value={stats?.[c.key] ?? 0}
+                icon={c.icon}
+                onClick={c.onClick}
+                color={c.color}
+              />
+            ))}
           </div>
-          <div className="activities-list">
-            {recentActivities.length > 0 ? (
-              recentActivities.map(activity => (
-                <div key={activity.id} className="activity-item">
-                  <span className="activity-icon">{getActivityIcon(activity.type)}</span>
-                  <div className="activity-content">
-                    <p className="activity-action">{activity.action}</p>
-                    <span className="activity-time">{activity.time}</span>
+          
+          <div className="dashboard-row">
+            <div className="dashboard-card quick-actions-card">
+              <div className="card-header">
+                <h2 className="card-title">Quick Actions</h2>
+                <FaChartLine className="card-icon" />
+              </div>
+              <div className="quick-actions">
+                {quickActions.map((action, index) => (
+                  <button 
+                    key={index}
+                    className="admin-btn"
+                    onClick={action.action}
+                  >
+                    <span className="btn-icon">{action.icon}</span>
+                    {action.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="dashboard-card system-card">
+              <div className="card-header">
+                <h2 className="card-title">System Information</h2>
+                <FaClock className="card-icon" />
+              </div>
+              <div className="system-info">
+                <div className="info-item">
+                  <div className="info-label">Signed in as</div>
+                  <div className="info-value">{me?.username || 'Unknown'}</div>
+                </div>
+                <div className="info-item">
+                  <div className="info-label">Role</div>
+                  <div className="info-value">{me?.role || 'Administrator'}</div>
+                </div>
+                <div className="info-item">
+                  <div className="info-label">API Endpoint</div>
+                  <div className="info-value">
+                    {process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1'}
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="no-activities">
-                <p>No recent activities</p>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-
-        <div className="dashboard-section">
-          <div className="section-header">
-            <h2>Quick Actions</h2>
-          </div>
-          <div className="quick-actions">
-            <button className="action-btn primary">
-              <span className="action-icon">➕</span>
-              Add News Article
-            </button>
-            <button className="action-btn secondary">
-              <span className="action-icon">📝</span>
-              Review Applications
-            </button>
-            <button className="action-btn secondary">
-              <span className="action-icon">📸</span>
-              Upload Photos
-            </button>
-            <button className="action-btn secondary">
-              <span className="action-icon">💬</span>
-              View Messages
-            </button>
-            <button className="action-btn secondary">
-              <span className="action-icon">⚙️</span>
-              Site Settings
-            </button>
-            <button className="action-btn secondary">
-              <span className="action-icon">📊</span>
-              Generate Report
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* System Information */}
-      <div className="dashboard-footer">
-        <div className="system-info">
-          <div className="info-item">
-            <strong>Server Status:</strong> 
-            <span className="status-indicator online"></span> Online
-          </div>
-          <div className="info-item">
-            <strong>Last Login:</strong> {new Date().toLocaleString()}
-          </div>
-          <div className="info-item">
-            <strong>Version:</strong> Admin Panel v2.1.0
-          </div>
-        </div>
-      </div>
+          
+          {recentActivity.length > 0 && (
+            <div className="dashboard-card activity-card">
+              <div className="card-header">
+                <h2 className="card-title">Recent Activity</h2>
+                <FaClock className="card-icon" />
+              </div>
+              <div className="activity-list">
+                {recentActivity.slice(0, 5).map((activity, index) => (
+                  <div key={index} className="activity-item">
+                    <div className="activity-time">
+                      {new Date(activity.timestamp).toLocaleString()}
+                    </div>
+                    <div className="activity-action">
+                      {activity.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

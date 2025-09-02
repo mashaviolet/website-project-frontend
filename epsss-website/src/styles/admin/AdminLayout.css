@@ -1,0 +1,114 @@
+/* Admin Layout Styles */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+
+.admin-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+}
+
+.admin-layout.sidebar-open .admin-content {
+  margin-left: 260px; /* Default sidebar width */
+}
+
+.admin-layout.sidebar-closed .admin-content {
+  margin-left: 70px; /* Collapsed sidebar width */
+}
+
+
+.admin-main {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+
+
+
+
+
+@media (max-width: 1024px) {
+  .admin-content,
+  .sidebar.open ~ .admin-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  html, body, .admin-layout, .admin-content, .admin-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+  .admin-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 220px;
+    max-width: 80vw;
+    flex-direction: column;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s, width 0.3s;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    width: 220px;
+    max-width: 80vw;
+  }
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+  .admin-content {
+    margin-left: 0 !important;
+    margin-top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+  .sidebar.open ~ .admin-content {
+    margin-left: 0 !important;
+    margin-top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .admin-main {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    height: 50px;
+    font-size: 0.9rem;
+  }
+  .sidebar.open {
+    width: 180px;
+  }
+  .sidebar-header h2 {
+    font-size: 1.1rem;
+  }
+  .admin-main {
+    padding: 5px;
+  }
+}

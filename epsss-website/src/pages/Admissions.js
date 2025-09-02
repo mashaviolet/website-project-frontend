@@ -1,9 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { FaCheckCircle, FaLightbulb } from 'react-icons/fa'; // Updated to use react-icons
 import '../styles/public/Admissions.css';
 import students1 from '../assets/students1.jpg';
+import students8 from '../assets/students8.jpg'; // Add second image
 
 function Admissions() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('requirements');
+  const [pendingScroll, setPendingScroll] = useState(null);
+  const location = useLocation();
+  const { section } = useParams();
+
+  // Map section IDs to tab keys
+  const sectionToTab = {
+    requirements: 'requirements',
+    'fee-structure': 'fees',
+    'important-dates': 'dates',
+    'application-process': 'process',
+  };
+
+  // On mount and location/params change, sync tab with section or hash
+  useEffect(() => {
+    let target = null;
+    if (sectionToTab[section]) {
+      setActiveTab(sectionToTab[section]);
+      target = section;
+    } else if (location.hash) {
+      const hash = location.hash.replace('#', '');
+      if (sectionToTab[hash]) {
+        setActiveTab(sectionToTab[hash]);
+        target = hash;
+      }
+    }
+    if (target) setPendingScroll(target);
+  }, [location, section]);
+
+  // After tab is set, scroll to the section if needed
+  useEffect(() => {
+    if (pendingScroll) {
+      // Wait for the element to exist in the DOM before scrolling
+      const scrollToSection = () => {
+        const el = document.getElementById(pendingScroll);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setPendingScroll(null);
+        } else {
+          // Try again on next animation frame
+          requestAnimationFrame(scrollToSection);
+        }
+      };
+      scrollToSection();
+    }
+  }, [activeTab, pendingScroll]);
+  // const navigate = useNavigate(); // Uncomment in actual app
+  
+  const handleContactClick = () => {
+    navigate('/contact-us');
+  };
 
   const admissionRequirements = {
     'S1': [
@@ -47,62 +101,51 @@ function Admissions() {
 
   return (
     <div className="admissions-container">
-      {/* Hero Section */}
-      <div className="admissions-hero">
-        <section
-          className="hero-section"
-          style={{
-            position: 'relative',
-            backgroundImage: `url(${students1})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            width: '100%',
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-          }}
-        >
-          {/* Dark overlay */}
-          <div
+      {/* Hero Section with Divided Images */}
+  <div className="admissions-hero" id="admissions-hero">
+        <section className="hero-section">
+          {/* Left Image */}
+          <div 
+            className="hero-image-left"
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              height: '100%',
-              width: '100%',
-              backgroundColor: 'white(100,0.8',
-              zIndex: 1,
+              backgroundImage: `url(${students1})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           ></div>
-
-          {/* Content */}
-          <div
+          
+          {/* Right Image */}
+          <div 
+            className="hero-image-right"
             style={{
-              position: 'relative',
-              zIndex: 2,
-              color: 'white',
-              padding: '2rem',
+              backgroundImage: `url(${students8})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
-          >
-            <h1>Admissions</h1>
-            <p>Join Entebbe Parents Secondary School - Where Excellence Meets Opportunity</p>
-
-            {/* Stats */}
-            <div className="hero-stats" style={{ marginTop: '2rem', display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <div className="stat-item">
-                <span className="stat-number">95%</span>
-                <span className="stat-label">Pass Rate</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">500+</span>
-                <span className="stat-label">Students</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">25+</span>
-                <span className="stat-label">Years Experience</span>
+          ></div>
+          
+          {/* Dark Overlay Container */}
+          <div className="hero-overlay">
+            <div className="hero-content-container">
+              <h1>Admissions</h1>
+              <p>Join Entebbe Parents Secondary School - Where Excellence Meets Opportunity</p>
+              
+              {/* Stats Cards with Dark Container */}
+              <div className="hero-stats">
+                <div className="stat-item">
+                  <span className="stat-number">95%</span>
+                  <span className="stat-label">Pass Rate</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">500+</span>
+                  <span className="stat-label">Students</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">28</span>
+                  <span className="stat-label">Years Experience</span>
+                </div>
               </div>
             </div>
           </div>
@@ -110,7 +153,7 @@ function Admissions() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="admissions-tabs">
+  <div className="admissions-tabs" id="admissions-tabs">
         <button 
           className={`tab-button ${activeTab === 'requirements' ? 'active' : ''}`}
           onClick={() => setActiveTab('requirements')}
@@ -140,7 +183,7 @@ function Admissions() {
       {/* Content Sections */}
       <div className="admissions-content">
         {activeTab === 'requirements' && (
-          <div className="requirements-section">
+          <div className="requirements-section" id="requirements">
             <h2>Admission Requirements</h2>
             <div className="requirements-grid">
               {Object.entries(admissionRequirements).map(([level, requirements]) => (
@@ -148,7 +191,10 @@ function Admissions() {
                   <h3>{level} Entry</h3>
                   <ul>
                     {requirements.map((req, index) => (
-                      <li key={index}>{req}</li>
+                      <li key={index}>
+                        <FaCheckCircle className="requirement-icon" /> {/* Updated icon */}
+                        {req}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -158,7 +204,7 @@ function Admissions() {
         )}
 
         {activeTab === 'fees' && (
-          <div className="fees-section">
+          <div className="fees-section" id="fee-structure">
             <h2>Fees Structure (Per Term)</h2>
             <div className="fees-table-container">
               <table className="fees-table">
@@ -183,17 +229,29 @@ function Admissions() {
             <div className="fee-notes">
               <h3>Additional Information</h3>
               <ul>
-                <li>School fees are payable at the beginning of each term</li>
-                <li>Lunch fees for day students: UGX 50,000 per term</li>
-                <li>Uniform and textbooks are additional costs</li>
-                <li>Payment can be made in the bank </li>
+                <li>
+                  <FaLightbulb className="fee-note-icon" /> {/* Updated icon */}
+                  School fees are payable at the beginning of each term
+                </li>
+                <li>
+                  <FaLightbulb className="fee-note-icon" /> {/* Updated icon */}
+                  Lunch fees for day students: UGX 50,000 per term
+                </li>
+                <li>
+                  <FaLightbulb className="fee-note-icon" /> {/* Updated icon */}
+                  Uniform and textbooks are additional costs
+                </li>
+                <li>
+                  <FaLightbulb className="fee-note-icon" /> {/* Updated icon */}
+                  Payment can be made in the bank
+                </li>
               </ul>
             </div>
           </div>
         )}
 
         {activeTab === 'dates' && (
-          <div className="dates-section">
+          <div className="dates-section" id="important-dates">
             <h2>Important Dates - 2025 Academic Year</h2>
             <div className="timeline">
               {importantDates.map((item, index) => (
@@ -210,7 +268,7 @@ function Admissions() {
         )}
 
         {activeTab === 'process' && (
-          <div className="process-section">
+          <div className="process-section" id="application-process">
             <h2>Application Process</h2>
             <div className="process-steps">
               <div className="step">
@@ -254,9 +312,11 @@ function Admissions() {
       </div>
 
       {/* Contact Information */}
-      <div className="admissions-cta">
+  <div className="admissions-cta" id="admissions-cta">
         <div className='cta-content'>
-        <button className="cta-button">Contact Admissions Office</button>
+          <button className="cta-button" onClick={handleContactClick}>
+            Contact Admissions Office
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaMap, FaDirections } from 'react-icons/fa';
 import '../styles/public/ContactUs.css';
 
 function Contact() {
+  const location = useLocation();
+  const { section } = useParams();
+
+  useEffect(() => {
+    let target = null;
+    if (section) {
+      target = section;
+    } else if (location.hash) {
+      target = location.hash.replace('#', '');
+    }
+    if (target) {
+      const el = document.getElementById(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [location, section]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,10 +29,8 @@ function Contact() {
     message: '',
     inquiryType: 'general'
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
-
   const schoolCoordinates = {
     lat: 0.0782,
     lng: 32.4659
@@ -27,7 +44,6 @@ function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     setTimeout(() => {
       setSubmitStatus('success');
       setIsSubmitting(false);
@@ -80,9 +96,8 @@ function Contact() {
 
   return (
     <div className="contact-page">
-
       {/* Departments */}
-      <section className="departments-section-main fade-in">
+  <section className="departments-section-main fade-in" id="department-contacts">
         <div className="container">
           <h2>Department Contacts</h2>
           <div className="departments-grid">
@@ -90,8 +105,8 @@ function Contact() {
               <div key={index} className="department-card">
                 <h3>{dept.name}</h3>
                 <p><strong>{dept.head}</strong></p>
-                <p>📞 {dept.phone}</p>
-                <p>✉️ {dept.email}</p>
+                <p><FaPhone className="icon" /> {dept.phone}</p>
+                <p><FaEnvelope className="icon" /> {dept.email}</p>
               </div>
             ))}
           </div>
@@ -99,7 +114,7 @@ function Contact() {
       </section>
 
       {/* Contact Form */}
-      <section className="contact-form-section-main slide-up">
+  <section className="contact-form-section-main slide-up" id="send-message">
         <div className="container">
           <h2>Send us a Message</h2>
           <form onSubmit={handleSubmit} className="contact-form">
@@ -113,7 +128,6 @@ function Contact() {
                 <input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label>Phone Number</label>
@@ -131,21 +145,17 @@ function Contact() {
                 </select>
               </div>
             </div>
-
             <div className="form-group">
               <label>Subject </label>
               <input type="text" name="subject" value={formData.subject} onChange={handleInputChange} required />
             </div>
-
             <div className="form-group">
               <label>Message </label>
               <textarea name="message" value={formData.message} onChange={handleInputChange} required rows="6" />
             </div>
-
             <button type="submit" className={`submit-btn ${isSubmitting ? 'submitting' : ''}`} disabled={isSubmitting}>
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
-
             {submitStatus === 'success' && (
               <div className="success-message">
                 ✅ Thank you! Your message has been sent successfully.
@@ -156,13 +166,13 @@ function Contact() {
       </section>
 
       {/* Updated Map Section - No API Required */}
-      <section className="map-section fade-in">
+  <section className="map-section fade-in" id="find-us">
         <div className="container">
           <h2>Find Us</h2>
           <div className="map-wrapper">
             <div className="location-card">
               <div className="location-info">
-                <h3>📍 Our Location</h3>
+                <h3><FaMapMarkerAlt className="icon" /> Our Location</h3>
                 <p><strong>Entebbe Parents Senior Secondary School</strong></p>
                 <p>Entebbe, Central Region, Uganda</p>
                 <p>Coordinates: {schoolCoordinates.lat}, {schoolCoordinates.lng}</p>
@@ -173,7 +183,7 @@ function Contact() {
               </div>
               <div className="location-visual">
                 <div className="map-placeholder">
-                  <div className="map-pin">📍</div>
+                  <div className="map-pin"><FaMapMarkerAlt /></div>
                   <p>Interactive Map</p>
                   <small>Click below to view on Google Maps</small>
                 </div>
@@ -181,10 +191,10 @@ function Contact() {
             </div>
             <div className="map-actions">
               <button onClick={openGoogleMaps} className="map-action-btn primary">
-                🗺️ View on Google Maps
+                <FaMap className="icon" /> View on Google Maps
               </button>
               <button onClick={getDirections} className="map-action-btn secondary">
-                🧭 Get Directions
+                <FaDirections className="icon" /> Get Directions
               </button>
             </div>
           </div>
@@ -192,20 +202,23 @@ function Contact() {
       </section>
 
       {/* Contact Summary */}
-      <section className="contact-summary-section">
+  <section className="contact-summary-section" id="contact-summary">
         <div className="container contact-summary-grid">
           <div className="contact-summary-card">
-            📞 <h3>Call Us</h3>
+            <FaPhone className="icon-large" />
+            <h3>Call Us</h3>
             <p>+256 774 222898</p>
             <p>+256 778 454545</p>
           </div>
           <div className="contact-summary-card">
-            ✉️ <h3>Email Us</h3>
+            <FaEnvelope className="icon-large" />
+            <h3>Email Us</h3>
             <p>admin@entebbeprentsss.ac.ug</p>
             <p>admissions@entebbeprentsss.ac.ug</p>
           </div>
           <div className="contact-summary-card">
-            🕒 <h3>Office Hours</h3>
+            <FaClock className="icon-large" />
+            <h3>Office Hours</h3>
             <p>Mon - Fri: 8:00 AM - 5:00 PM</p>
             <p>Sat: 8:00 AM - 12:00 PM</p>
           </div>

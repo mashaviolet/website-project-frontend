@@ -229,6 +229,9 @@ color: white;
     padding: 0 1rem;
   }
   
+  .feature-icon {
+    margin-left: 120px;
+  }
   
   .welcome-sec {
     font-size: 1.2rem;
@@ -272,6 +275,10 @@ color: white;
 @media (max-width: 480px) {
   .hero-section h1 {
     font-size: 2rem;
+  }
+
+  .feature-icon{
+    margin-left: 120px !important;
   }
   
   .school-motto {

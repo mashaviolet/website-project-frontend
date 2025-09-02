@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/public/Home.css';
-import students from '../assets/students.jpg';
+import sch from '../assets/sch.JPG';
 import { FaGraduationCap, FaTrophy, FaStar, FaLightbulb, FaHandshake, FaBullseye } from "react-icons/fa";
 
 
@@ -11,7 +11,7 @@ function Home() {
       <section
   className="hero-section"
   style={{
-    backgroundImage: `url(${students})`,
+    backgroundImage: `url(${sch})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -48,7 +48,7 @@ function Home() {
 
       {/* Features Section */}
       <section className="features-section" id="features">
-        <h2 className="section-title">Why Choose EPSS?</h2>
+        <h2 className="section-title">Why Choose Entebbe Parents Secondary School?</h2>
         <p className="section-subtitle">
           We provide comprehensive education that prepares students for success in academics, character, and life.
         </p>
@@ -101,7 +101,7 @@ function Home() {
 
           <div className="feature-card">
             <div className="feature-icon"><FaBullseye /></div>
-            <h3>Future Ready</h3>
+            <h3>Ready Future</h3>
             <p>
               We prepare students for higher education and careers with practical
               skills and critical thinking abilities.

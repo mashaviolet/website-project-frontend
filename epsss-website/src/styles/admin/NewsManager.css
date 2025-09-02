@@ -1,3 +1,78 @@
+/* Force all text in NewsManager to be black, subheadings green */
+/* Layout and color tweaks to match AboutUsManager */
+.dashboard {
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 40px auto;
+  background: var(--bg-white, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-green, rgba(46, 125, 50, 0.08));
+  padding: 32px 40px;
+  width: 100%;
+}
+.dashboard-card {
+  background: var(--bg-cream, #f9fbe7);
+  border: 1px solid var(--border-green-dark, #388e3c);
+  border-radius: 4px;
+  padding: 24px 20px;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+.dashboard h1.page-title {
+  color: var(--primary-green);
+  font-size: 2rem;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.dashboard h2, .dashboard .card-title {
+  color: var(--primary-green);
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.form-group label {
+  color: var(--primary-green);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-green-light, #c8e6c9);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: var(--bg-light, #f5f5f5);
+  color: var(--text-dark);
+  transition: border 0.2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border: 1.5px solid var(--primary-green);
+  outline: none;
+}
+.form-actions .admin-btn {
+  background: var(--primary-green);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.form-actions .admin-btn:hover {
+  background: var(--hover-green, #388e3c);
+}
+.form-actions .admin-btn-secondary {
+  background: var(--light-green, #81c784);
+  color: var(--text-dark);
+}
+.form-actions .admin-btn-secondary:hover {
+  background: var(--hover-light-green, #a5d6a7);
+}
 /* NewsManager Styles using your color variables */
 
 .news-manager {
