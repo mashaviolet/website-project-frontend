@@ -1,12 +1,5 @@
 /* MessagesViewer Styles using your color variables */
 
-.messages-viewer {
-  padding: 2rem;
-  background-color: var(--background-light);
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
 /* Header Section */
 .messages-header {
   display: flex;
@@ -15,6 +8,12 @@
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px solid var(--border-green);
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+.messages-list.fade-in .message-item {
+  opacity: 1;
 }
 
 .header-left h1 {
@@ -374,7 +373,6 @@
 }
 
 .category-tag {
-  background-color: var(--pale-green);
   color: var(--primary-green);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -509,12 +507,12 @@
 }
 
 .message-body {
-  background: var(--background-cream);
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  border-left: 4px solid var(--primary-green);
   position: relative;
+  padding: 1.5rem;
+  background: var(--background-cream);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-green);
+  margin-bottom: 1.5rem;
 }
 
 .message-body::before {
@@ -641,14 +639,23 @@
 /* Empty State */
 .empty-state {
   text-align: center;
-  padding: 3rem;
+  padding: 3rem 1rem;
   color: var(--text-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+  height: 100%;
+  animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
 }
 
 .empty-state p {
   font-size: 1.1rem;
   margin: 0;
   line-height: 1.5;
+  color: var(--text-dark);
 }
 
 /* Loading States */
@@ -671,6 +678,43 @@ textarea:focus {
   outline-offset: 2px;
 }
 
+/* Reply modal overlay and animation */
+.reply-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.reply-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  min-width: 320px;
+  max-width: 400px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  animation: fadeInUp 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Keyframes for animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .messages-content {
@@ -679,14 +723,6 @@ textarea:focus {
   
   .detail-header {
     gap: 1.5rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .messages-content {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: auto;
   }
   
   .message-detail {
@@ -720,31 +756,31 @@ textarea:focus {
     padding: 1rem;
   }
   
-  .filters-section {
-    justify-content: stretch;
+  .no-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: var(--background-cream);
+    border-radius: 12px;
+    animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
   }
-  
-  .filters-section select {
-    flex: 1;
-    min-width: auto;
+
+  .no-selection-content {
+    text-align: center;
+    color: var(--text-medium);
+    padding: 2rem 1rem;
   }
-  
-  .messages-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+
+  .no-selection-content h3 {
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
   }
-  
-  .stat-card {
-    padding: 1rem;
-  }
-  
-  .stat-number {
-    font-size: 1.8rem;
-  }
-  
-  .detail-header {
-    flex-direction: column;
-    gap: 1rem;
+
+  .no-selection-content p {
+    font-size: 1rem;
+    line-height: 1.5;
   }
   
   .detail-actions {
@@ -767,14 +803,12 @@ textarea:focus {
   
   .message-subject {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
   }
   
   .message-item {
     padding: 1rem;
   }
-  
+
   .message-detail {
     padding: 1rem;
   }
